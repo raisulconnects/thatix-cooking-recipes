@@ -4,6 +4,9 @@ const foodRendering = document.getElementById("foodRendering");
 const topLatestRecipiesTitle = document.getElementById(
   "topLatestRecipiesTitle"
 );
+const searchInputField = document.getElementById("searchInputField");
+const searchBtn = document.getElementById("searchBtn");
+
 const URL = "https://www.themealdb.com/api/json/v1/1/search.php?s";
 
 const APICalls = async function (URL) {
@@ -62,4 +65,20 @@ const noRecipeAleart = function () {
     `;
 };
 
+// Event Handling When Search Button is Pressed
+searchBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  console.log(
+    "Search Button Clicked & Now We'll Do Api Call For: ",
+    searchInputField.value
+  );
+
+  APICalls(
+    `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInputField.value}`
+  );
+
+  searchInputField.blur();
+});
+
+// Initial API & Function Call When Page loads
 APICalls(URL);

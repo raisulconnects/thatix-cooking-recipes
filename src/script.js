@@ -1,6 +1,7 @@
 // ``
 const URL = "https://www.themealdb.com/api/json/v1/1/search.php?s";
 
+const loadingSpinner = document.getElementById("spinner");
 const foodRendering = document.getElementById("foodRendering");
 const topLatestRecipiesTitle = document.getElementById(
   "topLatestRecipiesTitle"
@@ -11,19 +12,28 @@ const modalWindow = document.getElementById("modalWindow");
 const closeModalBtn = document.getElementById("closeModalBtn");
 
 const APICalls = async function (URL) {
-  const responce = await fetch(URL);
-  const data = await responce.json();
+  foodRendering.innerHTML = "";
+  loadingSpinner.classList.remove("hidden");
 
-  // For Checking if it's okay
-  //   console.log("APICalls Function Theke: ", data.meals);
+  try {
+    const responce = await fetch(URL);
+    const data = await responce.json();
 
-  // Checking If The API Even got any Data
-  !data.meals || data.meals === "no data found"
-    ? noRecipeAleart()
-    : renderRecipes(data.meals);
+    // For Checking if it's okay
+    //   console.log("APICalls Function Theke: ", data.meals);
 
-  // Permanent API CHECK (nijer check korar jonne)
-  //   console.log("Permanent API CHECK --> ", data.meals);
+    // Checking If The API Even got any Data
+    !data.meals || data.meals === "no data found"
+      ? noRecipeAleart()
+      : renderRecipes(data.meals);
+
+    // Permanent API CHECK (nijer check korar jonne)
+    //   console.log("Permanent API CHECK --> ", data.meals);
+  } catch (e) {
+    console.error("Error: ", e);
+  } finally {
+    loadingSpinner.classList.add("hidden");
+  }
 };
 
 const renderRecipes = function (arrOfMeals) {

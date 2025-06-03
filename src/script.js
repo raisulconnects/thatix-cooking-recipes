@@ -15,7 +15,12 @@ const APICalls = async function (URL) {
   console.log("APICalls Function Theke: ", data.meals);
 
   // Checking If The API Even got any Data
-  data.meals === "no data found" ? noRecipeAleart() : renderRecipes(data.meals);
+  !data.meals || data.meals === "no data found"
+    ? noRecipeAleart()
+    : renderRecipes(data.meals);
+
+  // Permanent API CHECK
+  console.log("Permanent API CHECK --> ", data.meals);
 };
 
 const renderRecipes = function (arrOfMeals) {
@@ -45,6 +50,7 @@ const renderRecipes = function (arrOfMeals) {
     })
     .join("");
 
+  topLatestRecipiesTitle.innerHTML = "Latest Recipies";
   foodRendering.innerHTML = "";
   foodRendering.innerHTML = meals;
 
@@ -52,6 +58,7 @@ const renderRecipes = function (arrOfMeals) {
 };
 
 const noRecipeAleart = function () {
+  foodRendering.innerHTML = "";
   topLatestRecipiesTitle.innerHTML = "";
   topLatestRecipiesTitle.innerHTML = `   
    <h1 class="text-center text-4xl m-4 font-semibold md:text-5xl">

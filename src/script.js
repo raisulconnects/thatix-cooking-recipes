@@ -87,4 +87,4 @@ searchBtn.addEventListener("click", function (e) {
 });
 
 // Initial API & Function Call When Page loads
-APICalls(URL);
+// APICalls(URL);

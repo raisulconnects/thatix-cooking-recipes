@@ -7,6 +7,8 @@ const topLatestRecipiesTitle = document.getElementById(
 );
 const searchInputField = document.getElementById("searchInputField");
 const searchBtn = document.getElementById("searchBtn");
+const modalWindow = document.getElementById("modalWindow");
+const closeModalBtn = document.getElementById("closeModalBtn");
 
 const APICalls = async function (URL) {
   const responce = await fetch(URL);
@@ -41,7 +43,9 @@ const renderRecipes = function (arrOfMeals) {
             ${meal.strInstructions.slice(0, 200)}
           </p>
 
-          <button class="ml-60 mb-3 bg-yellow-500 text-white p-4 rounded-2xl">
+          <button data-id="${
+            meal.idMeal
+          }" class="view-details-btn ml-60 mb-3 bg-yellow-500 text-white p-4 rounded-2xl">
             View Details
           </button>
 
@@ -86,5 +90,55 @@ searchBtn.addEventListener("click", function (e) {
   searchInputField.blur();
 });
 
+// // Close modal Button
+closeModalBtn.addEventListener("click", () => {
+  modalWindow.classList.add("hidden");
+  console.log("Close Modal Pressed");
+});
+
+// Event Deligation Use kora hocche on foodRendering jate view details e click porle bujha jae ke click kortese
+foodRendering.addEventListener("click", async function (e) {
+  if (e.target.closest(".view-details-btn")) {
+    const id = e.target.closest(".view-details-btn").dataset.id;
+
+    // Now We'll Fetch the Food Recipe Using the ID API
+    const responce = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    );
+    const data = await responce.json();
+    const meal = await data.meals[0];
+
+    // Now we put fetched info inside modal
+    modalWindow.innerHTML = "";
+    modalWindow.innerHTML = `
+    <div
+        class="container w-auto h-auto flex flex-col justify-start gap-3 bg-gray-200 rounded-2xl"
+      >
+        <img
+          src="${meal.strMealThumb}"
+          class="w-[600px] mx-auto rounded-b-2xl"
+          alt="modalImage"
+        />
+        <h1 class="font-bold text-4xl mx-auto text-center">${meal.strMeal}</h1>
+        <p class="text-wrap mx-auto text-center px-10">
+                ${meal.strInstructions.slice(0, 800)}
+        </p>
+
+
+        <button id="terai" class="bg-amber-300 rounded-3xl p-1 text-2xl mx-auto px-5 text-gray-900 m-2">
+            Close
+        </button>
+    </div>
+    `;
+
+    // Now we Show the Modal First as it's hidden
+    modalWindow.classList.remove("hidden");
+
+    document.getElementById("terai").addEventListener("click", function () {
+      modalWindow.classList.add("hidden");
+    });
+  }
+});
+
 // Initial API & Function Call When Page loads
-// APICalls(URL);
+APICalls(URL);

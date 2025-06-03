@@ -1,4 +1,5 @@
 // ``
+const URL = "https://www.themealdb.com/api/json/v1/1/search.php?s";
 
 const foodRendering = document.getElementById("foodRendering");
 const topLatestRecipiesTitle = document.getElementById(
@@ -6,8 +7,6 @@ const topLatestRecipiesTitle = document.getElementById(
 );
 const searchInputField = document.getElementById("searchInputField");
 const searchBtn = document.getElementById("searchBtn");
-
-const URL = "https://www.themealdb.com/api/json/v1/1/search.php?s";
 
 const APICalls = async function (URL) {
   const responce = await fetch(URL);

@@ -14,15 +14,16 @@ const APICalls = async function (URL) {
   const responce = await fetch(URL);
   const data = await responce.json();
 
-  console.log("APICalls Function Theke: ", data.meals);
+  // For Checking if it's okay
+  //   console.log("APICalls Function Theke: ", data.meals);
 
   // Checking If The API Even got any Data
   !data.meals || data.meals === "no data found"
     ? noRecipeAleart()
     : renderRecipes(data.meals);
 
-  // Permanent API CHECK
-  console.log("Permanent API CHECK --> ", data.meals);
+  // Permanent API CHECK (nijer check korar jonne)
+  //   console.log("Permanent API CHECK --> ", data.meals);
 };
 
 const renderRecipes = function (arrOfMeals) {
@@ -58,7 +59,8 @@ const renderRecipes = function (arrOfMeals) {
   foodRendering.innerHTML = "";
   foodRendering.innerHTML = meals;
 
-  console.log("renderRecipes Function Theke: Rendered");
+  // For checking if it's rendering properly
+  //   console.log("renderRecipes Function Theke: Rendered");
 };
 
 const noRecipeAleart = function () {

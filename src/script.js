@@ -46,7 +46,7 @@ const renderRecipes = function (arrOfMeals) {
 
           <button data-id="${
             meal.idMeal
-          }" class="view-details-btn ml-60 mb-3 bg-yellow-500 text-white p-4 rounded-2xl">
+          }" class="view-details-btn ml-65 mb-3 bg-yellow-500 text-white p-4 rounded-2xl transition-transform duration-200 transform hover:scale-110">
             View Details
           </button>
 
@@ -98,7 +98,7 @@ closeModalBtn.addEventListener("click", () => {
   console.log("Close Modal Pressed");
 });
 
-// Event Deligation Use kora hocche on foodRendering jate view details e click porle bujha jae ke click kortese
+// Event Deligation Use kora hocche on foodRendering jate view details e click porle bujha jae ke click kortese and MODAL DEYA
 foodRendering.addEventListener("click", async function (e) {
   if (e.target.closest(".view-details-btn")) {
     const id = e.target.closest(".view-details-btn").dataset.id;
@@ -114,7 +114,7 @@ foodRendering.addEventListener("click", async function (e) {
     modalWindow.innerHTML = "";
     modalWindow.innerHTML = `
     <div
-        class="container w-auto h-auto flex flex-col justify-start gap-3 bg-gray-200 rounded-2xl"
+        class="container w-auto h-auto flex flex-col justify-start gap-3 bg-gray-200 rounded-2xl shadow-2xl shadow-gray-700"
       >
         <img
           src="${meal.strMealThumb}"
@@ -127,9 +127,13 @@ foodRendering.addEventListener("click", async function (e) {
         </p>
 
 
-        <button id="terai" class="bg-amber-300 rounded-3xl p-1 text-2xl mx-auto px-5 text-gray-900 m-2">
-            Close
-        </button>
+<button
+  id="terai"
+  class="bg-amber-300 rounded-3xl p-1 text-2xl mx-auto px-5 text-gray-900 m-2 transition-transform duration-300 transform hover:scale-115"
+>
+  Close
+</button>
+
     </div>
     `;
 

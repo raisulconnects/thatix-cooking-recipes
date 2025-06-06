@@ -10,6 +10,7 @@ const searchInputField = document.getElementById("searchInputField");
 const searchBtn = document.getElementById("searchBtn");
 const modalWindow = document.getElementById("modalWindow");
 const closeModalBtn = document.getElementById("closeModalBtn");
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
 const APICalls = async function (URL) {
   foodRendering.innerHTML = "";
@@ -56,7 +57,7 @@ const renderRecipes = function (arrOfMeals) {
 
           <button data-id="${
             meal.idMeal
-          }" class="view-details-btn ml-65 mb-3 bg-yellow-500 text-white p-4 rounded-2xl transition-transform duration-200 transform hover:scale-110">
+          }" class="view-details-btn ml-65 mb-3 bg-yellow-500 text-white p-4 rounded-2xl cursor-pointer transition-transform duration-200 transform hover:scale-110">
             View Details
           </button>
 
@@ -154,6 +155,20 @@ foodRendering.addEventListener("click", async function (e) {
       modalWindow.classList.add("hidden");
     });
   }
+});
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    scrollToTopBtn.classList.remove("opacity-0", "pointer-events-none");
+    scrollToTopBtn.classList.add("opacity-100", "pointer-events-auto");
+  } else {
+    scrollToTopBtn.classList.add("opacity-0", "pointer-events-none");
+    scrollToTopBtn.classList.remove("opacity-100", "pointer-events-auto");
+  }
+});
+
+scrollToTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 // Initial API & Function Call When Page loads

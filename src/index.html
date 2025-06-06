@@ -45,7 +45,10 @@
         placeholder="Search for Recipes"
         class="px-5 w-full max-w-lg border border-gray-300 py-[6px] rounded-l-lg outline-none focus:ring-2 focus:ring-amber-300 transition md:max-w-5xl"
       />
-      <button class="bg-amber-300 rounded-r-lg p-1" id="searchBtn">
+      <button
+        class="bg-amber-300 rounded-r-lg p-1 cursor-pointer"
+        id="searchBtn"
+      >
         <img src="images/searchIcon.svg" class="w-auto h-[30px]" alt="" />
       </button>
     </form>
@@ -134,6 +137,15 @@
       </div>
     </div>
 
+    <!-- The Scroll to up Arrow -->
+    <div
+      id="scrollToTopBtn"
+      class="fixed bottom-5 right-5 w-12 h-12 bg-amber-300 rounded-full flex items-center justify-center shadow-lg cursor-pointer opacity-0 pointer-events-none transition-opacity duration-200 z-50"
+      title="Back to Top"
+    >
+      <img src="images/up-arrow.png" alt="Scroll to top" class="w-6 h-6" />
+    </div>
+
     <!-- Footer -->
     <div
       class="flex flex-col gap-4 text-center justify-between items-center bg-gray-200 mx-auto px-[100px] py-5 mt-10 md:flex-row"
@@ -163,6 +175,7 @@
         /></a>
       </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>

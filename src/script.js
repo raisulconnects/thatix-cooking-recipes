@@ -41,7 +41,9 @@ const renderRecipes = function (arrOfMeals) {
   const meals = arrOfMeals
     .map(function (meal) {
       return `
-    <div class="box flex flex-col justify-center items-start w-[400px] h-auto gap-3 shadow-2xl rounded-2xl m-5 transition-transform duration-200 hover:scale-101 hover:ring-[1px] hover:ring-amber-500">
+    <div class="box recipe-card flex flex-col justify-center items-start w-[400px] h-auto gap-3 shadow-2xl rounded-2xl m-5 transition-transform duration-200 hover:scale-101 hover:ring-[1px] hover:ring-amber-500" data-id=${
+      meal.idMeal
+    }>
 
           <img
             src="${meal.strMealThumb}"
@@ -169,6 +171,54 @@ window.addEventListener("scroll", () => {
 
 scrollToTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// If CARD is Pressed, then View Details Open Up according to that thing
+foodRendering.addEventListener("click", async function (e) {
+  const card = e.target.closest(".recipe-card");
+
+  // Ignore if clicked inside the View Details button naile duibar open hobe modal
+  if (!card || e.target.closest(".view-details-btn")) return;
+
+  const id = card.dataset.id;
+
+  try {
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    );
+    const data = await response.json();
+    const meal = data.meals[0];
+
+    modalWindow.innerHTML = `
+      <div
+        class="container w-auto h-auto flex flex-col justify-start gap-3 bg-gray-200 rounded-2xl shadow-2xl shadow-gray-700"
+      >
+        <img
+          src="${meal.strMealThumb}"
+          class="w-[600px] mx-auto rounded-b-2xl"
+          alt="modalImage"
+        />
+        <h1 class="font-bold text-4xl mx-auto text-center">${meal.strMeal}</h1>
+        <p class="text-wrap mx-auto text-center px-10">
+          ${meal.strInstructions.slice(0, 800)}
+        </p>
+        <button
+          id="terai"
+          class="bg-amber-300 rounded-[10px] p-1 text-2xl mx-auto px-5 text-gray-900 m-2 transition-transform duration-300 transform hover:scale-105"
+        >
+          Close
+        </button>
+      </div>
+    `;
+
+    modalWindow.classList.remove("hidden");
+
+    document.getElementById("terai").addEventListener("click", function () {
+      modalWindow.classList.add("hidden");
+    });
+  } catch (err) {
+    console.error("Error fetching recipe details:", err);
+  }
 });
 
 // Initial API & Function Call When Page loads

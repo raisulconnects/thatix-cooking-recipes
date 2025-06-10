@@ -41,7 +41,7 @@ const renderRecipes = function (arrOfMeals) {
   const meals = arrOfMeals
     .map(function (meal) {
       return `
-    <div class="box flex flex-col justify-center items-start w-[400px] h-auto gap-3 shadow-2xl rounded-2xl m-5">
+    <div class="box flex flex-col justify-center items-start w-[400px] h-auto gap-3 shadow-2xl rounded-2xl m-5 transition-transform duration-200 hover:scale-101 hover:ring-[1px] hover:ring-amber-500">
 
           <img
             src="${meal.strMealThumb}"
@@ -57,7 +57,7 @@ const renderRecipes = function (arrOfMeals) {
 
           <button data-id="${
             meal.idMeal
-          }" class="view-details-btn ml-65 mb-3 bg-yellow-500 text-white p-4 rounded-2xl cursor-pointer transition-transform duration-200 transform hover:scale-110">
+          }" class="view-details-btn ml-65 mb-3 bg-yellow-500 text-white p-4 rounded-2xl cursor-pointer transition-transform duration-200 transform hover:scale-105">
             View Details
           </button>
 
@@ -140,7 +140,7 @@ foodRendering.addEventListener("click", async function (e) {
 
 <button
   id="terai"
-  class="bg-amber-300 rounded-3xl p-1 text-2xl mx-auto px-5 text-gray-900 m-2 transition-transform duration-300 transform hover:scale-115"
+  class="bg-amber-300 rounded-[10px] p-1 text-2xl mx-auto px-5 text-gray-900 m-2 transition-transform duration-300 transform hover:scale-105"
 >
   Close
 </button>
